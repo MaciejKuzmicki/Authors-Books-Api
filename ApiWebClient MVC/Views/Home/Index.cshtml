@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<a asp-action="Create" asp-controller="Api">Add New Book</a>
+@foreach(var item in Model)
+{
+    <div class="card mb-3" style="max-width: 810px;text-align:center;margin: 0 auto;">
+        <div class="row g-0">
+            
+            <div class="col-md-12">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <h3 class="card-title">@item.Title</h3>
+                        <li class="card-text list-group-item">Book Author: @item.Author.Name @item.Author.Surname</li>
+                        <li class="card-text list-group-item">Book Description: @item.Description</li>
+
+
+                    </ul>
+                    <br />
+                    <a asp-action="Edit" asp-controller="Api" asp-route-id="@item.Id">Edit</a> 
+                    <a asp-controller="Api" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
