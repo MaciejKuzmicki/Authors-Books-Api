@@ -1,0 +1,58 @@
+﻿@page "/edit/{id:int}"
+@using ApiWebClient.Models
+@using ApiWebClient;
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+
+<h3>Edit Book</h3>
+
+@if(authors!= null)
+{
+    <div class="card mx-auto text-center" style="padding:20px; border-radius:20px;max-width:500px; align-content:center; margin:auto">
+        <h4 class="display-5 fw-bold text-body-emphasis rounded text-center p-3">Edit Book - @book.Title</h4>
+        <form method="POST" enctype="multipart/form-data" @onsubmit="SaveBook">
+            <div class="form-group">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" @bind="book.Title" />
+            </div>
+            <div class="form-group">
+                <label for="description" class="form-label">Description:</label>
+                <textarea class="form-control" id="description" @bind="book.Description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="authorId" class="form-label">Author:</label>
+                <select id="authorId" class="form-select" style="border-radius:20px" @bind="authorId">
+                    <option value="">Select an author</option>
+                    @foreach (var item in authors)
+                    {
+                        <option value="@item.Id">@item.Name @item.Surname</option>
+                    }
+                </select>
+            </div>
+            <input type="submit" value="Save Changes" class="btn btn-primary" />
+        </form>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+    List<Author> authors;
+    private int authorId;
+    private Book book;
+    protected override async Task OnInitializedAsync()
+    {
+        var bookResponse = await ApiService.loadBook(Id);
+        book = bookResponse.Data;
+        authors = await ApiService.loadAuthors();
+    }
+    
+    private async Task SaveBook()
+    {
+        book.Author = await ApiService.loadAuthor(authorId);
+
+        await ApiService.updateBook(book.Title, book.Author, book.Description, Id);
+
+        NavigationManager.NavigateTo("/");
+    }
+}

@@ -1,0 +1,51 @@
+﻿@page "/counter"
+@using ApiWebClient.Models;
+@using ApiWebClient;
+@inject ApiService ApiService;
+@inject NavigationManager NavigationManager
+
+
+<PageTitle>Counter</PageTitle>
+@if (authors != null)
+{
+    <div class="card mx-auto text-center" style="padding:20px; border-radius:20px;max-width:500px; align-content:center; margin:auto">
+        <h4 class=" display-5 fw-bold text-body-emphasis rounded text-center  p-3">Add new Book</h4>
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" class="form-control" id="title" @bind=book.Title />
+            </div>
+            <div class="form-group">
+                <label for="title" class="form-label">Description:</label>
+                <textarea type="text" class="form-control" id="title" @bind=book.Description></textarea>
+            </div>
+            <select id="authorId" class="form-select" style="border-radius:20px" @bind=authorId>
+                <option value="">Select an author</option>
+                @foreach (var item in authors)
+                {
+                    <option value="@item.Id">@item.Name @item.Surname</option>
+                }
+            </select>
+            <span asp-validation-for="Id" class="text-danger"></span>
+            <button type="button" value="Create" @onclick="AddBook" class="btn btn-primary">Add Book</button>
+        </form>
+    </div>
+}
+
+
+@code {
+    List<Author> authors;
+    private Book book = new Book();
+    private int authorId;
+    private async void AddBook()
+    {
+        book.Author = await ApiService.loadAuthor(authorId);
+        await ApiService.addBook(book.Title, book.Author, book.Description);
+        NavigationManager.NavigateTo("/");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+            authors = await ApiService.loadAuthors();
+    }
+}

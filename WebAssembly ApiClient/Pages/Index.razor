@@ -1,0 +1,63 @@
+﻿@page "/"
+@using ApiWebClient.Models
+@using ApiWebClient;
+
+@inject ApiService ApiService
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+
+<PageTitle>Index</PageTitle>
+
+<h1>List Books</h1>
+@if (books != null)
+{
+    @foreach (var book in books)
+    {
+        <div class="card mb-3" style="max-width: 810px;text-align:center;margin: 0 auto;">
+            <div class="row g-0">
+
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <h3 class="card-title">@book.Title</h3>
+                            <li class="card-text list-group-item">Book Author: @book.Author.Name @book.Author.Surname</li>
+                            <li class="card-text list-group-item">Book Description: @book.Description</li>
+
+
+                        </ul>
+                        <br />
+                        <button class="btn btn-outline-primary" @onclick="()=> GoToEdit(book.Id)">Edit</button>
+                        <button class="btn btn-outline-secondary" value="Delete" @onclick="(e) => DeleteBook(book.Id)">Delete</button>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@code {
+    List<Book>? books;
+
+    private async void DeleteBook(int id)
+    {
+        await ApiService.deleteBook(id);
+        books = await ApiService.loadBooks();
+        await JSRuntime.InvokeVoidAsync("location.reload");
+    }
+    void GoToEdit(int id)
+    {
+        NavigationManager.NavigateTo($"/edit/{id}");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(200);
+
+        books = await ApiService.loadBooks();
+
+
+    }
+}
