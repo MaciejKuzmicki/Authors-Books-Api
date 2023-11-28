@@ -1,5 +1,6 @@
 ﻿using Api.Logic;
 using Api.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace Api.Controllers
             return await _databaseContext.Books.Include(b=>b.Author).ToListAsync();
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles ="Customer")]
         public async Task<ActionResult<ServiceResponse<Book>>> AddBook([FromBody] Book book)
         {
             var result = await _bookService.AddBook(book);
