@@ -25,11 +25,11 @@ namespace ApiWebClient.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title, Description")] Book book, [Bind("Id")] string Id)
         {
-            
+            var cookie = Request.Cookies["accessToken"];
             Author author = await _apiService.loadAuthor(int.Parse(Id));
             if (book != null)
             {
-                await _apiService.addBook(book.Title, author, book.Description);
+                await _apiService.addBook(book.Title, author, book.Description, cookie);
                 return Redirect("/Home/Index");
             }
             List<Author> authorList = new List<Author>();

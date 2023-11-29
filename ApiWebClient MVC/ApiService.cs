@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Windows;
 using ApiWebClient.Models;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Http;
 
 namespace ApiWebClient
 {
@@ -86,9 +87,10 @@ namespace ApiWebClient
             return null;
         }
 
-        public async Task<ServiceResponse<Book>> addBook(string Title, Author Author, string Description)
+        public async Task<ServiceResponse<Book>> addBook(string Title, Author Author, string Description, string cookie)
         {
             using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", cookie);
             var response = await client.GetAsync("https://localhost:7008/api/authors");
             if (response.IsSuccessStatusCode)
             {
