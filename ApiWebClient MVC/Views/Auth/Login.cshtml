@@ -7,22 +7,22 @@
 
 
 <div class="card mx-auto text-center" style="padding:20px; border-radius:20px;max-width:500px; align-content:center; margin:auto">
-    <h4 class=" display-5 fw-bold text-body-emphasis rounded text-center  p-3">Give your credentials</h4>
+    <h6 class=" display-5  rounded text-center  p-3">Give your credentials</h6>
     <form method="POST" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="Email" class="control-label"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+            <input asp-for="Email" class="form-control" style="border-radius:20px" />
+            <span asp-validation-for="Email" class="text-danger" ></span>
         </div>
         <div class="form-group">
             <label asp-for="Password" class="control-label"></label>
-            <input asp-for="Password" class="form-control" />
+            <input asp-for="Password" type="password" class="form-control" style="border-radius:20px" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         
-        
+        <br/>
 
-        <input type="submit" value="Login" class="btn btn-primary" />
+        <input type="submit" value="Login" class="btn btn-outline-primary" style="border-radius:20px" />
     </form>
 </div>

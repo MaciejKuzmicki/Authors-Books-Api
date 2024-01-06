@@ -4,25 +4,24 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card mx-auto text-center" style="padding:20px; border-radius:20px;max-width:500px; align-content:center; margin:auto">
+    <h4 class=" display-5 rounded text-center  p-3">Edit book details</h4>
+
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <div class="form-group">
                 <label asp-for="Book.Title" class="control-label"></label>
-                <input asp-for="Book.Title" class="form-control" />
+                <input asp-for="Book.Title" style="border-radius:20px" class="form-control" />
                 <span asp-validation-for="Book.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Book.Description" class="control-label"></label>
-                <input asp-for="Book.Description" class="form-control" />
+                <input asp-for="Book.Description" style="border-radius:20px" class="form-control" />
                 <span asp-validation-for="Book.Description" class="text-danger"></span>
             </div>
+            <br />
             <select id="authorId" class="form-select" style="border-radius:20px" asp-for="Id">
                 <option value="">Select an author</option>
                 @foreach (var item in Model.authors)
@@ -36,16 +35,13 @@
                 <input asp-for="bookId" class="form-control" />
                 <span asp-validation-for="bookId" class="text-danger"></span>
             </div>
+            <br/>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="Save" style="border-radius:20px" class="btn btn-outline-primary" />
             </div>
         </form>
-    </div>
 </div>
 
-<div>
-    <a asp-controller="Home" asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

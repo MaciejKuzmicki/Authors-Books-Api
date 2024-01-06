@@ -20,10 +20,14 @@ namespace ApiWebClient.Controllers
             return View();
         }
 
+        public string errorMessage = string.Empty;
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(UserRegisterDTO userRegisterDTO)
         {
+            if (!ModelState.IsValid) return View(userRegisterDTO);
+            
             var result = await _authService.Register(userRegisterDTO);
             if(result.Success)
             {
@@ -36,6 +40,8 @@ namespace ApiWebClient.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginDTO userLoginDTO)
         {
+            if(!ModelState.IsValid) return View(userLoginDTO);
+
             var result = await _authService.Login(userLoginDTO);
             if(result.Success)
             {

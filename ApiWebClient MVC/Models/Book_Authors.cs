@@ -1,4 +1,6 @@
-﻿namespace ApiWebClient.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ApiWebClient.Models
 {
     public class Book_Authors
     {
