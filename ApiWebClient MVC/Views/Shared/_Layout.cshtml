@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,8 +7,22 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ApiWebClient.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', currentTheme);
+
+            document.getElementById('toggle').addEventListener('click', function () {
+                var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                currentTheme = newTheme;
+            });
+        });
+    </script>
     <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       
@@ -19,20 +33,20 @@
         
         <li></li>
       </ul>
-      @if (Context.Request.Cookies["accessToken"] == null){
             <div class="text-end">
+
+      @if (Context.Request.Cookies["accessToken"] == null){
                 <a type="button" asp-controller="Auth" asp-action="Login" class="btn btn-outline-primary me-2">Login</a>
                 <a type="button" asp-controller="Auth" asp-action="Register" class="btn btn-outline-secondary">Sign-up</a>
-                </div>
             }
             else
             {
-                <div class="text-end">
                     <a type="button" class="btn btn-outline-primary" href="/Api/Create" class="nav-link px-2">Add New Book</a>
                     <a type="button" asp-controller="Auth" asp-action="Logout" class="btn btn-outline-secondary">Logout</a>
-
-                </div>
             }
+            <a type="button" id="toggle" class="btn btn-outline-info">Change Theme</a>
+            </div>
+
         </header>
   </div>
 
@@ -48,9 +62,12 @@
             &copy; 2023 - ApiWebClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>
