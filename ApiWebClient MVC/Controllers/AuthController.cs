@@ -1,4 +1,6 @@
 ﻿using ApiWebClient.Models;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiWebClient.Controllers
@@ -19,6 +21,25 @@ namespace ApiWebClient.Controllers
         {
             return View();
         }
+
+        public IActionResult LoginWithGoogle()
+        {
+            return Challenge(new AuthenticationProperties { RedirectUri = "/Auth/GoogleResponse" }, GoogleDefaults.AuthenticationScheme);
+        }
+
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if (!result.Succeeded)
+                return BadRequest(); // Handle error response here
+
+            // Extract user info from result.Principal
+            // Implement your logic here (e.g., creating a user session)
+
+            return Redirect("");
+        }
+
 
         public string errorMessage = string.Empty;
 

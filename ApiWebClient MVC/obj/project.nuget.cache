@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Jm2NYI1i9zMMty0yhJY12MT1xNSM2h3oNtMUQJIlwDLA6RQnphgy736p7F496qPEVyUGhps/l0WSMSqDFokt2w==",
+  "dgSpecHash": "UsdxvQGgNll4prpxh7Z3kVe6XIw9z8KsluDNrdc77oGTb8kors+jbbiTma0ZJVBFGvHgCd3HvxaCZiady2BqIA==",
   "success": true,
   "projectFilePath": "C:\\Users\\mkuzm\\Desktop\\authorsbooks\\Authors-Books-Api\\ApiWebClient MVC\\ApiWebClient.csproj",
   "expectedPackageFiles": [
@@ -58,6 +58,7 @@
     "C:\\Users\\mkuzm\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.25\\microsoft.aspnetcore.authentication.google.6.0.25.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",

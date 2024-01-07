@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "rulqLPNetNxHx+mUmuGDmQPLWf/Ur6Em35d2X+H6tSRqbObzE0PauzA+mHfdRI0EcRtWbb85HtK4JmWrUn8kEw==",
+  "dgSpecHash": "oXoAQ6dA/cdRF4pS78Wk+XAJotKbU4GP7R3/Wolz1+HxueeuTaISOBZw0wkHycKIOVLN6wYPqMEcHkFQi/jiAw==",
   "success": true,
   "projectFilePath": "C:\\Users\\mkuzm\\Desktop\\authorsbooks\\Authors-Books-Api\\Api\\Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mkuzm\\.nuget\\packages\\bogus\\34.0.2\\bogus.34.0.2.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.25\\microsoft.aspnetcore.authentication.google.6.0.25.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.18\\microsoft.aspnetcore.authentication.jwtbearer.6.0.18.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.13\\microsoft.entityframeworkcore.7.0.13.nupkg.sha512",

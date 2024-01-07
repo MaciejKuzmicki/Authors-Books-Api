@@ -226,3 +226,4 @@ C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\ApiWebClient MVC\obj\Debug
 C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\ApiWebClient MVC\obj\Debug\net6.0\ApiWebClient.pdb
 C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\ApiWebClient MVC\obj\Debug\net6.0\ApiWebClient.genruntimeconfig.cache
 C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\ApiWebClient MVC\obj\Debug\net6.0\ref\ApiWebClient.dll
+C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\ApiWebClient MVC\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll

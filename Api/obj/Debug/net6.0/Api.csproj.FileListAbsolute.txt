@@ -60,3 +60,4 @@ C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\Api\obj\Debug\net6.0\refin
 C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\Api\obj\Debug\net6.0\Api.pdb
 C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\Api\obj\Debug\net6.0\ref\Api.dll
+C:\Users\mkuzm\Desktop\authorsbooks\Authors-Books-Api\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll

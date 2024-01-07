@@ -43,6 +43,12 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = "YourGoogleClientId";
+        options.ClientSecret = "YourGoogleClientSecret";
+    });
 builder.Services.AddScoped<AuthService>();
 
 string token = builder.Configuration.GetSection("AppSettings:Token").Value;
