@@ -9,8 +9,8 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddHttpClient();
 builder.Services.AddAuthentication().AddGoogle(options =>
 {
-    options.ClientId = "468032211895-c96h1b30t8k1njh646m573phn7ch60e5.apps.googleusercontent.com";
-    options.ClientSecret = "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";
+    options.ClientId = "";
+    options.ClientSecret = "";
     options.CallbackPath = "/signin-google";
 });
 var app = builder.Build();
