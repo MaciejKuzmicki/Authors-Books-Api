@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using System.Text;
 
 namespace ApiWebClient.Controllers
 {
@@ -27,19 +29,71 @@ namespace ApiWebClient.Controllers
             return Challenge(new AuthenticationProperties { RedirectUri = "/Auth/GoogleResponse" }, GoogleDefaults.AuthenticationScheme);
         }
 
+        
+
         public async Task<IActionResult> GoogleResponse()
         {
             var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
 
             if (!result.Succeeded)
-                return BadRequest(); // Handle error response here
+                return BadRequest(); 
+            var principal = result.Principal;
+            var claims = principal.Identities.FirstOrDefault()?.Claims;
+            if (claims is null)
+                return BadRequest(); 
 
-            // Extract user info from result.Principal
-            // Implement your logic here (e.g., creating a user session)
+            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
 
-            return Redirect("");
+            var password = generatePassword();
+            var username = email?.Split('@')[0]; 
+
+            var userRegisterDto = new UserRegisterDTO
+            {
+                Email = email,
+                Password = password,
+                ConfirmPassword = password,
+                Username = username
+            };
+            var userLoginDto = new UserLoginDTO
+            {
+                Email = email,
+                Password = password,
+            };
+
+            var log = await _authService.Login(userLoginDto);
+            await Console.Out.WriteLineAsync("STOP1");
+            if (!log.Success)
+            {
+                var reg = await _authService.Register(userRegisterDto);
+                log = await _authService.Login(userLoginDto);
+                await Console.Out.WriteLineAsync("STOP2");
+
+            }
+            if (log.Success)
+            {
+                await Console.Out.WriteLineAsync("STOP3");
+
+                Response.Cookies.Append("accessToken", log.Data, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                });
+
+            }
+
+
+            return Redirect("/Home/Index");
+
+
+
         }
 
+
+        public string generatePassword()
+        {
+            return "123456789";
+        }
 
         public string errorMessage = string.Empty;
 
