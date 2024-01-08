@@ -23,6 +23,12 @@ namespace Api.Controllers
             _bookService = new BookService(databaseContext);
         }
 
+        [HttpGet("/XD")]
+        public async Task<IActionResult> GetSomethingAsync()
+        {
+            return await Task.FromResult(Content("XD"));
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {

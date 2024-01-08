@@ -28,7 +28,7 @@ namespace ApiWebClient
         public async Task<List<Author>> loadAuthors()
         {
             using var client = new HttpClient();
-            var reponse = await client.GetAsync("https://localhost:7008/api/authors");
+            var reponse = await client.GetAsync("https://apipamiwazure.azurewebsites.net/api/authors");
             if (reponse.IsSuccessStatusCode)
             {
                 var authors = await reponse.Content.ReadAsStringAsync();
@@ -41,7 +41,7 @@ namespace ApiWebClient
         public async Task<List<Book>> loadBooks()
         {
             using var client = new HttpClient();
-            var response = await client.GetAsync("https://localhost:7008/api/books");
+            var response = await client.GetAsync("https://apipamiwazure.azurewebsites.net/api/books");
             if (response.IsSuccessStatusCode)
             {
 
@@ -56,7 +56,7 @@ namespace ApiWebClient
         public async Task<Author> loadAuthor(int id)
         {
             using var client = new HttpClient();
-            var reponse = await client.GetAsync($"https://localhost:7008/api/authors/{id}");
+            var reponse = await client.GetAsync($"https://apipamiwazure.azurewebsites.net/api/authors/{id}");
             if (reponse.IsSuccessStatusCode)
             {
                 var authors = await reponse.Content.ReadAsStringAsync();
@@ -70,7 +70,7 @@ namespace ApiWebClient
         public async Task<ServiceResponse<Book>> loadBook(int id)
         {
             using var client = new HttpClient();
-            var response = await client.GetAsync($"https://localhost:7008/api/books/{id}");
+            var response = await client.GetAsync($"https://apipamiwazure.azurewebsites.net/api/books/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var book = await response.Content.ReadAsStringAsync();
@@ -83,7 +83,7 @@ namespace ApiWebClient
         public async Task<ServiceResponse<Book>> deleteBook(int id)
         {
             using var client = new HttpClient();
-            var response = await client.DeleteAsync($"https://localhost:7008/api/books/{id}");
+            var response = await client.DeleteAsync($"https://apipamiwazure.azurewebsites.net/api/books/{id}");
             return null;
         }
 
@@ -91,7 +91,7 @@ namespace ApiWebClient
         {
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", cookie);
-            var response = await client.GetAsync("https://localhost:7008/api/authors");
+            var response = await client.GetAsync("https://apipamiwazure.azurewebsites.net/api/authors");
             if (response.IsSuccessStatusCode)
             {
                 var authors = JsonConvert.DeserializeObject<List<Author>>(await response.Content.ReadAsStringAsync());
@@ -106,7 +106,7 @@ namespace ApiWebClient
                 newBook.Author = author;
                 string json = JsonConvert.SerializeObject(newBook);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage postResponse = await client.PostAsync("https://localhost:7008/api/books", content);
+                HttpResponseMessage postResponse = await client.PostAsync("https://apipamiwazure.azurewebsites.net/api/books", content);
                 if (postResponse.IsSuccessStatusCode)
                 {
                     return null;
@@ -128,7 +128,7 @@ namespace ApiWebClient
 
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             await Console.Out.WriteLineAsync(json);
-            var response = await client.PutAsync($"https://localhost:7008/api/books/{id}", content);
+            var response = await client.PutAsync($"https://apipamiwazure.azurewebsites.net/api/books/{id}", content);
             return null;
         }
     }

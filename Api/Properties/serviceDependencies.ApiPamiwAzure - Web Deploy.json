@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/ApiPamiwAzure/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsApi_19EA031BC3",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/azurepamiwdbhosting/databases/azurepamiwdbhosting",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:Api"
+    }
+  }
+}

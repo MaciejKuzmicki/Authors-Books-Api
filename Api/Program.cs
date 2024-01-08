@@ -1,100 +1,75 @@
-using Api.Logic;
-using Api.Model;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Api.Logic; // Assuming you have this namespace
+using Api.Model; // Assuming you have this namespace
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add controllers
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Configuration for Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen();
+
+// JWT Authentication Configuration
+string secretKey = "my top secretkey";
+builder.Services.AddScoped<Api.Logic.AuthService>();
+
+
+
+builder.Services.AddAuthentication(auth =>
 {
-    // Swagger configuration
-
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(jwt =>
+{
+    jwt.SaveToken = true;
+    jwt.TokenValidationParameters = new TokenValidationParameters
     {
-        Description = "JWT Authorization header using the Bearer scheme",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = "bearer"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] { }
-        }
-    });
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+        ValidateIssuer = false, // for development, set to true in production and specify the issuer
+        ValidateAudience = false, // for development, set to true in production and specify the audience
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
 });
-builder.Services.AddAuthentication()
-    .AddGoogle(options =>
-    {
-        options.ClientId = "YourGoogleClientId";
-        options.ClientSecret = "YourGoogleClientSecret";
-    });
-builder.Services.AddScoped<AuthService>();
 
-string token = builder.Configuration.GetSection("AppSettings:Token").Value;
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-    {
-        // options.Authority = "https://localhost:5001";
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateAudience = false,
-            ValidateIssuer = false,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(token)),
-            ValidateIssuerSigningKey = true,
-        };
-    });
-
-
-
-
+// CORS Configuration
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("https://localhost:7256")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod()
-                          .AllowCredentials());
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.WithOrigins("https://localhost:7256") // Replace with the correct domains
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();
+    });
 });
 
-builder.Services.AddDbContext<DatabaseContext>(
-    o => o.UseNpgsql(builder.Configuration.GetConnectionString("Api"))
-);
+// Database Context Configuration
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Api")));
 
 var app = builder.Build();
-app.UseCors("AllowSpecificOrigin");
 
-// Configure the HTTP request pipeline.
+// Middleware Configuration
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1"));
 }
-ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
-app.UseAuthentication();
+
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
