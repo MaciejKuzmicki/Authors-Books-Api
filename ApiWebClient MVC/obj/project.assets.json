@@ -9729,11 +9729,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mkuzm\\Desktop\\authorsbooks\\Authors-Books-Api\\ApiWebClient MVC\\ApiWebClient.csproj",
+      "projectUniqueName": "C:\\Users\\mkuzm\\Desktop\\Authors-Books-Api\\ApiWebClient MVC\\ApiWebClient.csproj",
       "projectName": "ApiWebClient",
-      "projectPath": "C:\\Users\\mkuzm\\Desktop\\authorsbooks\\Authors-Books-Api\\ApiWebClient MVC\\ApiWebClient.csproj",
+      "projectPath": "C:\\Users\\mkuzm\\Desktop\\Authors-Books-Api\\ApiWebClient MVC\\ApiWebClient.csproj",
       "packagesPath": "C:\\Users\\mkuzm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mkuzm\\Desktop\\authorsbooks\\Authors-Books-Api\\ApiWebClient MVC\\obj\\",
+      "outputPath": "C:\\Users\\mkuzm\\Desktop\\Authors-Books-Api\\ApiWebClient MVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -16,32 +16,7 @@ namespace Api.Logic
             _context = context;
             _config = config;
         }
-
-        public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
-        {
-            var user = await _context.Users.FindAsync(userId);
-            if (user == null)
-            {
-                return new ServiceResponse<bool>
-                {
-                    Success = false,
-                    Message = "User not found."
-                };
-            }
-
-            CreatePasswordHash(newPassword, out byte[] passwordHash, out byte[] passwordSalt);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-
-            await _context.SaveChangesAsync();
-            return new ServiceResponse<bool>
-            {
-                Data = true,
-                Message = "Password updated successfully.",
-                Success = true
-            };
-        }
-
+        
         public async Task<ServiceResponse<string>> Login(string email, string password)
         {
             var response = new ServiceResponse<string>();
@@ -113,16 +88,12 @@ namespace Api.Logic
                 };
             }
 
-            // create password hash and salt
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            // assign hash and salt to user
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            // add user to db
             await _context.Users.AddAsync(user);
-            // save changes
             await _context.SaveChangesAsync();
 
             return new ServiceResponse<int> { Success = true, Data = user.Id, Message = "Registration successful!" };
@@ -131,12 +102,9 @@ namespace Api.Logic
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            // using statement to dispose of IDisposable objects
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
-                // generate random salt
                 passwordSalt = hmac.Key;
-                // generate hash
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }

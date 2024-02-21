@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UsdxvQGgNll4prpxh7Z3kVe6XIw9z8KsluDNrdc77oGTb8kors+jbbiTma0ZJVBFGvHgCd3HvxaCZiady2BqIA==",
+  "dgSpecHash": "f9Scv2tfR/dc3wKZaBvWVLXp00sbAtE1w/7bp8PuwPrISwOMWrim8b5UoANJqHzVDyzCd/Yn4F2kK+KEMxzhYA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mkuzm\\Desktop\\authorsbooks\\Authors-Books-Api\\ApiWebClient MVC\\ApiWebClient.csproj",
+  "projectFilePath": "C:\\Users\\mkuzm\\Desktop\\Authors-Books-Api\\ApiWebClient MVC\\ApiWebClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mkuzm\\.nuget\\packages\\azure.core\\1.36.0\\azure.core.1.36.0.nupkg.sha512",
     "C:\\Users\\mkuzm\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
